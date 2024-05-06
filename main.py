@@ -1,40 +1,42 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
-def clear_dataset(data_frame):
-    print(data_frame.head())
+def clear_dataset(df):
+    print(df.head())
 
     # Check duplicated rows
-    duplicates = data_frame[data_frame.duplicated(keep=False)]
+    duplicates = df[df.duplicated(keep=False)]
     print("Duplicates:", duplicates)
     # df.drop_duplicates(inplace=True)
 
     # Check rows with missing data
-    missing_values = data_frame[data_frame.isnull().any(axis=1)]
+    missing_values = df[df.isnull().any(axis=1)]
     print("Missing values:", missing_values)
     # df.dropna(inplace=True)
 
     # Remove unused column
-    print("Columns:", data_frame.columns)
-    data_frame.drop(columns=['Unnamed: 0'], inplace=True)
-    print("Columns:", data_frame.columns)
-    print(data_frame.head())
+    print("Columns:", df.columns)
+    df.drop(columns=['Unnamed: 0'], inplace=True)
+    print("Columns:", df.columns)
+    print(df.head())
 
     # Check different value types
-    print(data_frame.dtypes)
-    object_cols = data_frame.select_dtypes(include='object').columns
+    print(df.dtypes)
+    object_cols = df.select_dtypes(include='object').columns
     for col in object_cols:
-        print(f"Column '{col}' has values:", data_frame[col].unique())
+        print(f"Column '{col}' has values:", df[col].unique())
 
 
-def numeric_stats(data_frame):
-    numeric_cols = data_frame.select_dtypes(include='number').columns.tolist()
+def numeric_stats(df):
+    numeric_cols = df.select_dtypes(include='number').columns.tolist()
     print("Numeric columns:", numeric_cols)
 
     # Рассчитываем среднее значение, медиану и моду для численных переменных
-    mean_values = data_frame[numeric_cols].mean()
-    median_values = data_frame[numeric_cols].median()
-    mode_values = data_frame[numeric_cols].mode().dropna()
+    mean_values = df[numeric_cols].mean()
+    median_values = df[numeric_cols].median()
+    mode_values = df[numeric_cols].mode().dropna()
 
     print("Среднее значение:", mean_values, sep="\n")
     print("Медиана:", median_values, sep="\n")
@@ -49,7 +51,38 @@ def numeric_stats(data_frame):
 """)
 
 
-df = pd.read_csv('diamonds.csv')
-clear_dataset(df)
-numeric_stats(df)
+def draw_hist(df, col):
+    plt.hist(df[col], bins=50)
+    plt.xlabel(col)
+    plt.ylabel('Count')
+    plt.show()
+    plt.close()
 
+
+def draw_box_plots(df):
+    sns.boxplot(x='price', y='cut', data=df)
+    plt.show()
+    plt.close()
+
+    sns.boxplot(x='price', y='color', data=df)
+    plt.show()
+    plt.close()
+
+
+def draw_scatter_plots(df):
+    sns.scatterplot(x='carat', y='price', data=df)
+    plt.show()
+    plt.close()
+
+
+def data_visualization(df):
+    for col in ['carat', 'depth', 'price']:
+        draw_hist(df, col)
+    draw_box_plots(df)
+    draw_scatter_plots(df)
+
+
+data_frame = pd.read_csv('diamonds.csv')
+clear_dataset(data_frame)
+numeric_stats(data_frame)
+data_visualization(data_frame)
