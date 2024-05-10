@@ -90,8 +90,19 @@ def analyze_variables(df):
     print("Порядок столбцов по убыванию разброса: price, depth, carat")
 
 
+def correlation_visualize(df):
+    numeric_cols = df.select_dtypes(include='number').columns.tolist()
+    corr_matrix = df[numeric_cols].corr()
+    sns.heatmap(corr_matrix, annot=True)
+    plt.show()
+    plt.close()
+    print("Есть реальная корреляция между ценой и каратом алмаза, а также между высотой, шириной и длиной с каратом")
+
+
 data_frame = pd.read_csv('diamonds.csv')
 clear_dataset(data_frame)
 numeric_stats(data_frame)
-# data_visualization(data_frame)
+data_visualization(data_frame)
 analyze_variables(data_frame)
+correlation_visualize(data_frame)
+

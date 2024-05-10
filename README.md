@@ -74,3 +74,4 @@ dtype: float64
 ![img_3.png](doc/img/img_3.png)
 ![img_4.png](doc/img/img_4.png)
 ![img_5.png](doc/img/img_5.png)
+![img_6.png](doc/img/img_6.png)
