@@ -82,7 +82,16 @@ def data_visualization(df):
     draw_scatter_plots(df)
 
 
+def analyze_variables(df):
+    for col in ['carat', 'depth', 'price']:
+        std = df[col].std()
+        col_range = df[col].min(), df[col].max()
+        print("Standard deviation:", std, " and range: ", col_range, " for column:", col)
+    print("Порядок столбцов по убыванию разброса: price, depth, carat")
+
+
 data_frame = pd.read_csv('diamonds.csv')
 clear_dataset(data_frame)
 numeric_stats(data_frame)
-data_visualization(data_frame)
+# data_visualization(data_frame)
+analyze_variables(data_frame)
