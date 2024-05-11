@@ -93,7 +93,7 @@ def analyze_variables(df):
 def correlation_visualize(df):
     numeric_cols = df.select_dtypes(include='number').columns.tolist()
     corr_matrix = df[numeric_cols].corr()
-    sns.heatmap(corr_matrix, annot=True)
+    sns.heatmap(corr_matrix, annot=True, vmin=-1, vmax=1, center=0)
     plt.show()
     plt.close()
     print("Есть реальная корреляция между ценой и каратом алмаза, а также между высотой, шириной и длиной с каратом")

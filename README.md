@@ -28,4 +28,4 @@
 ### Scatter plot цены от карат
 ![img_5.png](doc/img/img_5.png)
 ### Тепловая карта всех численных переменных
-![img_6.png](doc/img/img_6.png)
+![img_6.png](doc/img/img_7.png)
